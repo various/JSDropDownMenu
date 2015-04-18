@@ -347,13 +347,15 @@
     
     UIBezierPath *path = [UIBezierPath new];
     [path moveToPoint:CGPointMake(0, 0)];
-    [path addLineToPoint:CGPointMake(8, 0)];
     [path addLineToPoint:CGPointMake(4, 5)];
-    [path closePath];
+    [path addLineToPoint:CGPointMake(8, 0)];
+    
+    //[path closePath];
     
     layer.path = path.CGPath;
     layer.lineWidth = 1.0;
-    layer.fillColor = color.CGColor;
+    layer.strokeColor = color.CGColor;
+    [path stroke];
     
     CGPathRef bound = CGPathCreateCopyByStrokingPath(layer.path, nil, layer.lineWidth, kCGLineCapButt, kCGLineJoinMiter, layer.miterLimit);
     layer.bounds = CGPathGetBoundingBox(bound);
