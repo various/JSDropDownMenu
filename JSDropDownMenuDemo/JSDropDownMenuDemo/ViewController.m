@@ -14,10 +14,12 @@
     NSMutableArray *_data1;
     NSMutableArray *_data2;
     NSMutableArray *_data3;
+    NSMutableArray *_data4;
     
     NSInteger _currentData1Index;
     NSInteger _currentData2Index;
     NSInteger _currentData3Index;
+    NSInteger _currentData4Index;
     
     NSInteger _currentData1SelectedIndex;
     JSDropDownMenu *menu;
@@ -39,10 +41,11 @@
     NSArray *travel = @[@"全部旅游", @"周边游", @"景点门票", @"国内游", @"境外游"];
     
     _data1 = [NSMutableArray arrayWithObjects:@{@"title":@"美食", @"data":food}, @{@"title":@"旅游", @"data":travel}, nil];
-    _data2 = [NSMutableArray arrayWithObjects:@"智能排序", @"离我最近", @"评价最高", @"最新发布", @"人气最高", @"价格最低", @"价格最高", nil];
-    _data3 = [NSMutableArray arrayWithObjects:@"不限人数", @"单人餐", @"双人餐", @"3~4人餐", nil];
+    _data2 = [NSMutableArray arrayWithObjects: @"全城", @"500m", @"1km", @"3km", @"5km",  nil];
+    _data3 = [NSMutableArray arrayWithObjects:@"默认排序", @"离我最近", @"评价最高", @"最新发布", @"销量最高", @"价格最低", @"价格最高", nil];
+    _data4 = [NSMutableArray arrayWithObjects:@"筛选",  nil];
     
-    menu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 20) andHeight:45];
+    menu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, 20) andHeight:40];
     menu.indicatorColor = [UIColor colorWithRed:175.0f/255.0f green:175.0f/255.0f blue:175.0f/255.0f alpha:1.0];
     menu.separatorColor = [UIColor colorWithRed:210.0f/255.0f green:210.0f/255.0f blue:210.0f/255.0f alpha:1.0];
     menu.textColor = [UIColor colorWithRed:83.f/255.0f green:83.f/255.0f blue:83.f/255.0f alpha:1.0f];
@@ -54,7 +57,7 @@
 
 - (NSInteger)numberOfColumnsInMenu:(JSDropDownMenu *)menu {
     
-    return 3;
+    return 4;
 }
 
 -(BOOL)displayByCollectionViewInColumn:(NSInteger)column{
@@ -117,6 +120,8 @@
     } else if (column==2){
         
         return _data3.count;
+    } else if (column== 3){
+        return _data4.count;
     }
     
     return 0;
@@ -130,6 +135,8 @@
         case 1: return _data2[_currentData2Index];
             break;
         case 2: return _data3[_currentData3Index];
+            break;
+        case 3: return _data4[_currentData4Index];
             break;
         default:
             return nil;
@@ -173,9 +180,11 @@
         
         _currentData2Index = indexPath.row;
         
-    } else{
+    } else if(indexPath.column == 2){
         
         _currentData3Index = indexPath.row;
+    } else {
+        _currentData4Index = indexPath.row;
     }
 }
 
