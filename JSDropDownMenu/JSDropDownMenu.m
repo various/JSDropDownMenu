@@ -7,166 +7,16 @@
 //
 
 #import "JSDropDownMenu.h"
+#import "JSCollectionViewCell.h"
+#import "JSTableViewCell.h"
+#import "JSIndexPath.h"
+#import "NSString+Size.h"
 
-#define BackColor [UIColor colorWithRed:244.0f/255.0f green:244.0f/255.0f blue:244.0f/255.0f alpha:1.0]
+#define BackColor [UIColor colorWithRed:247/255.0f green:247/255.0f blue:247/255.0f alpha:1.0]
 // 选中颜色加深
 #define SelectColor [UIColor colorWithRed:238.0f/255.0f green:238.0f/255.0f blue:238.0f/255.0f alpha:1.0]
 
-@interface NSString (Size)
-
-- (CGSize)textSizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size lineBreakMode:(NSLineBreakMode)lineBreakMode;
-
-@end
-
-@implementation NSString (Size)
-
-- (CGSize)textSizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size lineBreakMode:(NSLineBreakMode)lineBreakMode
-{
-    CGSize textSize;
-    if (CGSizeEqualToSize(size, CGSizeZero))
-    {
-        NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
-        
-        textSize = [self sizeWithAttributes:attributes];
-    }
-    else
-    {
-        NSStringDrawingOptions option = NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
-        //NSStringDrawingTruncatesLastVisibleLine如果文本内容超出指定的矩形限制，文本将被截去并在最后一个字符后加上省略号。 如果指定了NSStringDrawingUsesLineFragmentOrigin选项，则该选项被忽略 NSStringDrawingUsesFontLeading计算行高时使用行间距。（字体大小+行间距=行高）
-        NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
-        CGRect rect = [self boundingRectWithSize:size
-                                         options:option
-                                      attributes:attributes
-                                         context:nil];
-        
-        textSize = rect.size;
-    }
-    return textSize;
-}
-
-@end
-
-@interface JSCollectionViewCell:UICollectionViewCell
-
-@property(nonatomic,strong) UILabel *textLabel;
-@property(nonatomic,strong) UIImageView *accessoryView;
-
--(void)removeAccessoryView;
-
-@end
-
-@implementation JSCollectionViewCell
-
--(instancetype)initWithFrame:(CGRect)frame{
-    
-    self = [super initWithFrame:frame];
-    if (self) {
-        _textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        _textLabel.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:_textLabel];
-    }
-    return self;
-}
-
--(void)setAccessoryView:(UIImageView *)accessoryView{
-    
-    [self removeAccessoryView];
-    
-    _accessoryView = accessoryView;
-    
-    _accessoryView.frame = CGRectMake(self.frame.size.width-10-16, (self.frame.size.height-12)/2, 16, 12);
-    
-    [self addSubview:_accessoryView];
-}
-
--(void)removeAccessoryView{
-    
-    if(_accessoryView){
-        
-        [_accessoryView removeFromSuperview];
-    }
-}
-
-@end
-
-
-
-@interface JSTableViewCell : UITableViewCell
-
-@property(nonatomic,readonly) UILabel *cellTextLabel;
-@property(nonatomic,strong) UIImageView *cellAccessoryView;
-
--(void)setCellText:(NSString *)text align:(NSString*)align;
-
-@end
-
-@implementation JSTableViewCell
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-        _cellTextLabel = [[UILabel alloc] init];
-        _cellTextLabel.textAlignment = NSTextAlignmentCenter;
-        _cellTextLabel.font = [UIFont systemFontOfSize:14.0f];
-        [self addSubview:_cellTextLabel];
-    }
-    return self;
-}
-
--(void)setCellText:(NSString *)text align:(NSString*)align{
-    
-    _cellTextLabel.text = text;
-    // 只取宽度
-    CGSize textSize = [text textSizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:CGSizeMake(MAXFLOAT, 14) lineBreakMode:NSLineBreakByWordWrapping];
-//    CGSize textSize = [text sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:CGSizeMake(MAXFLOAT, 14)];
-    
-    CGFloat marginX = 20;
-    
-    if (![@"left" isEqualToString:align]) {
-        marginX = (self.frame.size.width-textSize.width)/2;
-    }
-    
-    _cellTextLabel.frame = CGRectMake(marginX, 0, textSize.width, self.frame.size.height);
-    
-    if(_cellAccessoryView){
-        _cellAccessoryView.frame = CGRectMake(_cellTextLabel.frame.origin.x+_cellTextLabel.frame.size.width+10, (self.frame.size.height-12)/2, 16, 12);
-    }
-}
-
--(void)setCellAccessoryView:(UIImageView *)accessoryView{
-    
-    if (_cellAccessoryView) {
-        [_cellAccessoryView removeFromSuperview];
-    }
-    
-    _cellAccessoryView = accessoryView;
-    
-    _cellAccessoryView.frame = CGRectMake(_cellTextLabel.frame.origin.x+_cellTextLabel.frame.size.width+10, (self.frame.size.height-12)/2, 16, 12);
-    
-    [self addSubview:_cellAccessoryView];
-}
-
-@end
-
-@implementation JSIndexPath
-- (instancetype)initWithColumn:(NSInteger)column leftOrRight:(NSInteger)leftOrRight  leftRow:(NSInteger)leftRow row:(NSInteger)row {
-    self = [super init];
-    if (self) {
-        _column = column;
-        _leftOrRight = leftOrRight;
-        _leftRow = leftRow;
-        _row = row;
-    }
-    return self;
-}
-
-+ (instancetype)indexPathWithCol:(NSInteger)col leftOrRight:(NSInteger)leftOrRight leftRow:(NSInteger)leftRow row:(NSInteger)row {
-    JSIndexPath *indexPath = [[self alloc] initWithColumn:col leftOrRight:leftOrRight leftRow:leftRow row:row];
-    return indexPath;
-}
-@end
+#define SelectColorForMenuAndIndicator [UIColor colorWithRed:254/255.0f green:109/255.0f blue:156/255.0f alpha:1.0]
 
 #pragma mark - menu implementation
 
@@ -347,11 +197,11 @@
     
     UIBezierPath *path = [UIBezierPath new];
     [path moveToPoint:CGPointMake(0, 0)];
-    [path addLineToPoint:CGPointMake(4, 5)];
-    [path addLineToPoint:CGPointMake(8, 0)];
+    [path addLineToPoint:CGPointMake(5, 5)];
+    [path addLineToPoint:CGPointMake(10, 0)];
     
     //[path closePath];
-    
+    layer.fillColor = [UIColor clearColor].CGColor;
     layer.path = path.CGPath;
     layer.lineWidth = 1.0;
     layer.strokeColor = color.CGColor;
@@ -429,6 +279,16 @@
                 }];
             }];
             [(CALayer *)self.bgLayers[i] setBackgroundColor:BackColor.CGColor];
+            CAShapeLayer *indicator = (CAShapeLayer*)_indicators[i];
+            CATextLayer *textLayer = (CATextLayer *)_titles[i];
+            textLayer.foregroundColor = self.indicatorColor.CGColor;
+            indicator.strokeColor = self.indicatorColor.CGColor;
+
+        }else{
+            CAShapeLayer *indicator = (CAShapeLayer*)_indicators[i];
+            CATextLayer *textLayer = (CATextLayer *)_titles[i];
+            textLayer.foregroundColor = SelectColorForMenuAndIndicator.CGColor;
+            indicator.strokeColor = SelectColorForMenuAndIndicator.CGColor;
         }
     }
     
@@ -533,7 +393,7 @@
                     _show = YES;
                 }];
             }
-            [(CALayer *)self.bgLayers[tapIndex] setBackgroundColor:SelectColor.CGColor];
+            //[(CALayer *)self.bgLayers[tapIndex] setBackgroundColor:BackColor.CGColor];
         }
     }
 }

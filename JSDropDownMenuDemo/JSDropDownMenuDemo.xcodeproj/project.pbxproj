@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F5A04D51AE5FE6100AA82AF /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5A04D41AE5FE6100AA82AF /* AddressBookUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7F5A04D81AE643D700AA82AF /* JSIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5A04D71AE643D700AA82AF /* JSIndexPath.m */; };
+		7F5A04DE1AE644B100AA82AF /* NSString+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5A04DD1AE644B100AA82AF /* NSString+Size.m */; };
+		7F5A04E11AE644F000AA82AF /* JSCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5A04E01AE644F000AA82AF /* JSCollectionViewCell.m */; };
+		7F5A04E41AE6458600AA82AF /* JSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5A04E31AE6458600AA82AF /* JSTableViewCell.m */; };
 		D0EED8831A63CBC700EE7AFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EED8821A63CBC700EE7AFD /* main.m */; };
 		D0EED8861A63CBC700EE7AFD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EED8851A63CBC700EE7AFD /* AppDelegate.m */; };
 		D0EED8891A63CBC700EE7AFD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EED8881A63CBC700EE7AFD /* ViewController.m */; };
@@ -29,6 +34,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7F5A04D41AE5FE6100AA82AF /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		7F5A04D61AE643D700AA82AF /* JSIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSIndexPath.h; sourceTree = "<group>"; };
+		7F5A04D71AE643D700AA82AF /* JSIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSIndexPath.m; sourceTree = "<group>"; };
+		7F5A04DC1AE644B100AA82AF /* NSString+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Size.h"; sourceTree = "<group>"; };
+		7F5A04DD1AE644B100AA82AF /* NSString+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Size.m"; sourceTree = "<group>"; };
+		7F5A04DF1AE644F000AA82AF /* JSCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSCollectionViewCell.h; sourceTree = "<group>"; };
+		7F5A04E01AE644F000AA82AF /* JSCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSCollectionViewCell.m; sourceTree = "<group>"; };
+		7F5A04E21AE6458600AA82AF /* JSTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTableViewCell.h; sourceTree = "<group>"; };
+		7F5A04E31AE6458600AA82AF /* JSTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTableViewCell.m; sourceTree = "<group>"; };
 		D0EED87D1A63CBC700EE7AFD /* JSDropDownMenuDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSDropDownMenuDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0EED8811A63CBC700EE7AFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0EED8821A63CBC700EE7AFD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -52,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F5A04D51AE5FE6100AA82AF /* AddressBookUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +83,7 @@
 		D0EED8741A63CBC700EE7AFD = {
 			isa = PBXGroup;
 			children = (
+				7F5A04D41AE5FE6100AA82AF /* AddressBookUI.framework */,
 				D0EED87F1A63CBC700EE7AFD /* JSDropDownMenuDemo */,
 				D0EED8991A63CBC700EE7AFD /* JSDropDownMenuDemoTests */,
 				D0EED87E1A63CBC700EE7AFD /* Products */,
@@ -131,6 +147,14 @@
 				D0EED8AC1A64CAF300EE7AFD /* ico_make.png */,
 				D0EED8A71A63CCB300EE7AFD /* JSDropDownMenu.h */,
 				D0EED8A81A63CCB300EE7AFD /* JSDropDownMenu.m */,
+				7F5A04D61AE643D700AA82AF /* JSIndexPath.h */,
+				7F5A04D71AE643D700AA82AF /* JSIndexPath.m */,
+				7F5A04DC1AE644B100AA82AF /* NSString+Size.h */,
+				7F5A04DD1AE644B100AA82AF /* NSString+Size.m */,
+				7F5A04DF1AE644F000AA82AF /* JSCollectionViewCell.h */,
+				7F5A04E01AE644F000AA82AF /* JSCollectionViewCell.m */,
+				7F5A04E21AE6458600AA82AF /* JSTableViewCell.h */,
+				7F5A04E31AE6458600AA82AF /* JSTableViewCell.m */,
 			);
 			name = JSDropDownMenu;
 			path = ../../JSDropDownMenu;
@@ -237,9 +261,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F5A04E11AE644F000AA82AF /* JSCollectionViewCell.m in Sources */,
 				D0EED8891A63CBC700EE7AFD /* ViewController.m in Sources */,
 				D0EED8861A63CBC700EE7AFD /* AppDelegate.m in Sources */,
+				7F5A04D81AE643D700AA82AF /* JSIndexPath.m in Sources */,
+				7F5A04E41AE6458600AA82AF /* JSTableViewCell.m in Sources */,
 				D0EED8A91A63CCB300EE7AFD /* JSDropDownMenu.m in Sources */,
+				7F5A04DE1AE644B100AA82AF /* NSString+Size.m in Sources */,
 				D0EED8831A63CBC700EE7AFD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,6 +459,7 @@
 				D0EED8A21A63CBC700EE7AFD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D0EED8A31A63CBC700EE7AFD /* Build configuration list for PBXNativeTarget "JSDropDownMenuDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -439,6 +468,7 @@
 				D0EED8A51A63CBC700EE7AFD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

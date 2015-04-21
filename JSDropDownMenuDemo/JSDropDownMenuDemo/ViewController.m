@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "JSDropDownMenu.h"
-
+#import "JSIndexPath.h"
 @interface ViewController ()<JSDropDownMenuDataSource,JSDropDownMenuDelegate>{
     
     NSMutableArray *_data1;
@@ -37,10 +37,13 @@
     _currentData1Index = 1;
     _currentData1SelectedIndex = 1;
     
-    NSArray *food = @[@"全部美食", @"火锅", @"川菜", @"西餐", @"自助餐"];
-    NSArray *travel = @[@"全部旅游", @"周边游", @"景点门票", @"国内游", @"境外游"];
+    NSArray *quanbufenlei = @[];
+    NSArray *jinrixindan = @[];
+    NSArray *dianying = @[];
+    NSArray *meishi = @[@"全部", @"全部中餐", @"小吃快餐", @"火锅", @"自助餐"];
+    NSArray *jiudian = @[@"全部",@"经济型酒店",@"快捷酒店",@"青年旅社",@"钟点房",@"商务酒店"];
     
-    _data1 = [NSMutableArray arrayWithObjects:@{@"title":@"美食", @"data":food}, @{@"title":@"旅游", @"data":travel}, nil];
+    _data1 = [NSMutableArray arrayWithObjects:@{@"title":@"全部分类", @"data":quanbufenlei}, @{@"title":@"今日新单", @"data":jinrixindan},@{@"title":@"电影", @"data":dianying}, @{@"title":@"美食", @"data":meishi} , @{@"title":@"酒店", @"data":jiudian}, nil];
     _data2 = [NSMutableArray arrayWithObjects: @"全城", @"500m", @"1km", @"3km", @"5km",  nil];
     _data3 = [NSMutableArray arrayWithObjects:@"默认排序", @"离我最近", @"评价最高", @"最新发布", @"销量最高", @"价格最低", @"价格最高", nil];
     _data4 = [NSMutableArray arrayWithObjects:@"筛选",  nil];
