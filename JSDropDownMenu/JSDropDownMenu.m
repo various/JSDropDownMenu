@@ -658,6 +658,7 @@
     
     CGSize textSize;
     NSString *titleText =[self.dataSource menu:self titleForRowAtIndexPath:[JSIndexPath indexPathWithCol:self.currentSelectedMenudIndex leftOrRight:leftOrRight leftRow:_leftSelectedRow row:indexPath.row]];
+   
     if ([self.dataSource respondsToSelector:@selector(menu:titleForRowAtIndexPath:)]) {
         
         titleLabel.text = titleText;
@@ -692,60 +693,88 @@
         }
     } else{
         
-        static NSString *leftTableCellIdentifier = LeftTableReuseIdentifier;
-        LeftTableViewCell *leftTableViewCell = (LeftTableViewCell *)[tableView dequeueReusableCellWithIdentifier:leftTableCellIdentifier forIndexPath:indexPath];
-        leftTableViewCell.menuTitle.text = titleText;
-        CGFloat ratio = [_dataSource widthRatioOfLeftColumn:_currentSelectedMenudIndex];
-        
-        CGFloat marginX = (self.frame.size.width*ratio-textSize.width)/2;
-       
-        leftTableViewCell.subMenuCount.text = @"23";
-        switch (indexPath.row) {
-            case 0:
-                leftTableViewCell.imageView.image = [UIImage imageNamed:@"quanbufenlei"];
-                [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"quanbufenleiselect"]];
-
-                break;
-            case 1:
-                leftTableViewCell.imageView.image = [UIImage imageNamed:@"jinrixindan"];
-                [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"jinrixindanselected"]];
-
-                break;
-            case 2:
-                leftTableViewCell.imageView.image = [UIImage imageNamed:@"dianying"];
-                [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"dianyingselected"]];
-
-                break;
-            case 3:
-                leftTableViewCell.imageView.image = [UIImage imageNamed:@"meishi"];
-                [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"meishiselected"]];
-
-                break;
-            case 4:
-                leftTableViewCell.imageView.image = [UIImage imageNamed:@"jiudian"];
-                [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"jiudianselected"]];
-
-                break;
-            default:
-                break;
-        }
-        
-        titleLabel.frame = CGRectMake(marginX, 0, textSize.width, cell.frame.size.height);
-        
-        if (!_hadSelected && _leftSelectedRow == indexPath.row) {
-            cell.backgroundColor = BackColor;
-            BOOL haveRightTableView = [_dataSource haveRightTableViewInColumn:_currentSelectedMenudIndex];
-            if(!haveRightTableView){
-                UIImageView *accessoryImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_make"]];
-                
-                accessoryImageView.frame = CGRectMake(titleLabel.frame.origin.x+titleLabel.frame.size.width+10, (self.frame.size.height-12)/2, 16, 12);
-                
-                [cell addSubview:accessoryImageView];
+        if(_currentSelectedMenudIndex == 0){
+            static NSString *leftTableCellIdentifier = LeftTableReuseIdentifier;
+            LeftTableViewCell *leftTableViewCell = (LeftTableViewCell *)[tableView dequeueReusableCellWithIdentifier:leftTableCellIdentifier forIndexPath:indexPath];
+            leftTableViewCell.menuTitle.text = titleText;
+            CGFloat ratio = [_dataSource widthRatioOfLeftColumn:_currentSelectedMenudIndex];
+            
+            CGFloat marginX = (self.frame.size.width*ratio-textSize.width)/2;
+            
+            leftTableViewCell.subMenuCount.text = @"23";
+            switch (indexPath.row) {
+                case 0:
+                    leftTableViewCell.imageView.image = [UIImage imageNamed:@"quanbufenlei"];
+                    [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"quanbufenleiselect"]];
+                    
+                    break;
+                case 1:
+                    leftTableViewCell.imageView.image = [UIImage imageNamed:@"jinrixindan"];
+                    [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"jinrixindanselected"]];
+                    
+                    break;
+                case 2:
+                    leftTableViewCell.imageView.image = [UIImage imageNamed:@"dianying"];
+                    [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"dianyingselected"]];
+                    
+                    break;
+                case 3:
+                    leftTableViewCell.imageView.image = [UIImage imageNamed:@"meishi"];
+                    [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"meishiselected"]];
+                    
+                    break;
+                case 4:
+                    leftTableViewCell.imageView.image = [UIImage imageNamed:@"jiudian"];
+                    [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"jiudianselected"]];
+                    
+                    break;
+                default:
+                    break;
             }
-        } else{
+            
+            titleLabel.frame = CGRectMake(marginX, 0, textSize.width, cell.frame.size.height);
+            
+            if (!_hadSelected && _leftSelectedRow == indexPath.row) {
+                cell.backgroundColor = BackColor;
+                BOOL haveRightTableView = [_dataSource haveRightTableViewInColumn:_currentSelectedMenudIndex];
+                if(!haveRightTableView){
+                    UIImageView *accessoryImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_make"]];
+                    
+                    accessoryImageView.frame = CGRectMake(titleLabel.frame.origin.x+titleLabel.frame.size.width+10, (self.frame.size.height-12)/2, 16, 12);
+                    
+                    [cell addSubview:accessoryImageView];
+                }
+            } else{
+                
+            }
+            if (_leftSelectedRow == indexPath.row) {
+                cell.selected = YES;
+            }
+            return leftTableViewCell;
+        }else{
+            CGFloat ratio = [_dataSource widthRatioOfLeftColumn:_currentSelectedMenudIndex];
+            
+            CGFloat marginX = (self.frame.size.width*ratio-textSize.width)/2;
+            
+            titleLabel.frame = CGRectMake(marginX, 0, textSize.width, cell.frame.size.height);
+            
+            if (!_hadSelected && _leftSelectedRow == indexPath.row) {
+                cell.backgroundColor = BackColor;
+                BOOL haveRightTableView = [_dataSource haveRightTableViewInColumn:_currentSelectedMenudIndex];
+                if(!haveRightTableView){
+                    UIImageView *accessoryImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_make"]];
+                    
+                    accessoryImageView.frame = CGRectMake(titleLabel.frame.origin.x+titleLabel.frame.size.width+10, (self.frame.size.height-12)/2, 16, 12);
+                    
+                    [cell addSubview:accessoryImageView];
+                }
+            } else{
+                
+            }
             
         }
-        return leftTableViewCell;
+        
+
     }
     
     return cell;
