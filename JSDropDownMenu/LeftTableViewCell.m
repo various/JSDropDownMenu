@@ -7,6 +7,7 @@
 //
 
 #import "LeftTableViewCell.h"
+#define SelectColorForMenuAndIndicator [UIColor colorWithRed:254/255.0f green:109/255.0f blue:156/255.0f alpha:1.0]
 
 
 @implementation LeftTableViewCell
@@ -16,18 +17,42 @@
     self.subMenuCount.layer.cornerRadius = 3.0;
     self.subMenuCount.layer.masksToBounds = YES;
     self.subMenuCount.backgroundColor = LeftCountDefaultColor;
-    
+    self.contentView.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
+    self.subMenuCount.textColor = [UIColor whiteColor];
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+    [super setHighlighted:highlighted animated:animated];
+    if (highlighted) {
+        self.subMenuCount.backgroundColor = LeftCountDefaultColor;
+        self.menuTitle.textColor = SelectColorForMenuAndIndicator;
+        self.iconImageView.highlighted = YES;
+        self.contentView.backgroundColor = LeftSelectColor;
+    }else{
+        
+        self.contentView.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
+        
+        self.subMenuCount.backgroundColor = LeftCountDefaultColor;
+        self.menuTitle.textColor = [UIColor blackColor];
+        self.iconImageView.highlighted = NO;
+        
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     if (selected) {
+        self.subMenuCount.backgroundColor = LeftCountDefaultColor;
+        self.menuTitle.textColor = SelectColorForMenuAndIndicator;
+        self.iconImageView.highlighted = YES;
         self.contentView.backgroundColor = LeftSelectColor;
-        self.subMenuCount.backgroundColor = LeftCountDefaultColor;
-        self.menuTitle.textColor = [UIColor redColor];
-        self.iconImageView.image
     }else{
+        
+        self.contentView.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
+
         self.subMenuCount.backgroundColor = LeftCountDefaultColor;
+        self.menuTitle.textColor = [UIColor blackColor];
+        self.iconImageView.highlighted = NO;
 
     }
    

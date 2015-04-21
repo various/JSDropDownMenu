@@ -703,21 +703,27 @@
         switch (indexPath.row) {
             case 0:
                 leftTableViewCell.imageView.image = [UIImage imageNamed:@"quanbufenlei"];
+                [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"quanbufenleiselect"]];
+
                 break;
             case 1:
                 leftTableViewCell.imageView.image = [UIImage imageNamed:@"jinrixindan"];
+                [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"jinrixindanselected"]];
 
                 break;
             case 2:
                 leftTableViewCell.imageView.image = [UIImage imageNamed:@"dianying"];
+                [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"dianyingselected"]];
 
                 break;
             case 3:
                 leftTableViewCell.imageView.image = [UIImage imageNamed:@"meishi"];
+                [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"meishiselected"]];
 
                 break;
             case 4:
                 leftTableViewCell.imageView.image = [UIImage imageNamed:@"jiudian"];
+                [leftTableViewCell.imageView setHighlightedImage:[UIImage imageNamed:@"jiudianselected"]];
 
                 break;
             default:
