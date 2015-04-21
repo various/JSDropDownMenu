@@ -67,10 +67,7 @@
 
 -(BOOL)displayByCollectionViewInColumn:(NSInteger)column{
     
-    if (column==2) {
-        
-        return YES;
-    }
+
     
     return NO;
 }
@@ -86,7 +83,7 @@
 -(CGFloat)widthRatioOfLeftColumn:(NSInteger)column{
     
     if (column==0) {
-        return 0.3;
+        return 0.5;
     }
     
     return 1;
@@ -135,7 +132,12 @@
 - (NSString *)menu:(JSDropDownMenu *)menu titleForColumn:(NSInteger)column{
     
     switch (column) {
-        case 0: return [[_data1[_currentData1Index] objectForKey:@"data"] objectAtIndex:_currentData1SelectedIndex];
+        case 0:
+            if ([[_data1[_currentData1Index] objectForKey:@"data"] count] == 0) {
+               return  [_data1[_currentData1Index] objectForKey:@"title"];
+            }
+            return [[_data1[_currentData1Index] objectForKey:@"data"] objectAtIndex:_currentData1SelectedIndex];
+
             break;
         case 1: return _data2[_currentData2Index];
             break;

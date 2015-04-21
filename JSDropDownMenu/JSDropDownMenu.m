@@ -8,10 +8,11 @@
 
 #import "JSDropDownMenu.h"
 #import "JSCollectionViewCell.h"
-#import "JSTableViewCell.h"
+//#import "JSTableViewCell.h"
 #import "JSIndexPath.h"
 #import "NSString+Size.h"
-
+#import "LeftTableViewCell.h"
+#define  LeftTableReuseIdentifier @"LeftTableViewCellIdentifier"
 #define BackColor [UIColor colorWithRed:247/255.0f green:247/255.0f blue:247/255.0f alpha:1.0]
 // 选中颜色加深
 #define SelectColor [UIColor colorWithRed:238.0f/255.0f green:238.0f/255.0f blue:238.0f/255.0f alpha:1.0]
@@ -100,7 +101,7 @@
         //title
         CGPoint titlePosition = CGPointMake( (i * 2 + 1) * textLayerInterval , self.frame.size.height / 2);
         NSString *titleString = [_dataSource menu:self titleForColumn:i];
-        CATextLayer *title = [self createTextLayerWithNSString:titleString withColor:self.textColor andPosition:titlePosition];
+        CATextLayer *title = [self createTextLayerWithNSString:titleString withColor:self.indicatorColor andPosition:titlePosition];
         [self.layer addSublayer:title];
         [tempTitles addObject:title];
         //indicator
@@ -136,16 +137,21 @@
         
         //tableView init
         _leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(origin.x, self.frame.origin.y + self.frame.size.height, 0, 0) style:UITableViewStyleGrouped];
-        _leftTableView.rowHeight = 38;
+        _leftTableView.rowHeight = 40;
         _leftTableView.separatorColor = [UIColor colorWithRed:220.f/255.0f green:220.f/255.0f blue:220.f/255.0f alpha:1.0];
         _leftTableView.dataSource = self;
         _leftTableView.delegate = self;
+        _leftTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+        
+        [_leftTableView registerNib:[UINib nibWithNibName:NSStringFromClass([LeftTableViewCell class]) bundle:nil] forCellReuseIdentifier:LeftTableReuseIdentifier];
         
         _rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.frame.size.width, self.frame.origin.y + self.frame.size.height, 0, 0) style:UITableViewStyleGrouped];
-        _rightTableView.rowHeight = 38;
+        _rightTableView.rowHeight = 40;
         _rightTableView.separatorColor = [UIColor colorWithRed:220.f/255.0f green:220.f/255.0f blue:220.f/255.0f alpha:1.0];
         _rightTableView.dataSource = self;
         _rightTableView.delegate = self;
+        _rightTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         UICollectionViewFlowLayout *flowLayout=[[UICollectionViewFlowLayout alloc] init];
         flowLayout.minimumInteritemSpacing = 0;
@@ -351,7 +357,7 @@
                 _show = NO;
             }];
             
-            [(CALayer *)self.bgLayers[tapIndex] setBackgroundColor:BackColor.CGColor];
+            //[(CALayer *)self.bgLayers[tapIndex] setBackgroundColor:BackColor.CGColor];
         } else {
             
             _hadSelected = NO;
@@ -631,8 +637,8 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-    cell.selectedBackgroundView.backgroundColor = BackColor;
-        
+    cell.selectedBackgroundView.backgroundColor = LeftSelectColor;
+    cell.contentView.backgroundColor = LeftSelectColor;
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.textColor = self.textColor;
     titleLabel.tag = 1;
@@ -651,10 +657,10 @@
 //    UILabel *titleLabel = (UILabel*)[cell viewWithTag:1];
     
     CGSize textSize;
-    
+    NSString *titleText =[self.dataSource menu:self titleForRowAtIndexPath:[JSIndexPath indexPathWithCol:self.currentSelectedMenudIndex leftOrRight:leftOrRight leftRow:_leftSelectedRow row:indexPath.row]];
     if ([self.dataSource respondsToSelector:@selector(menu:titleForRowAtIndexPath:)]) {
         
-        titleLabel.text = [self.dataSource menu:self titleForRowAtIndexPath:[JSIndexPath indexPathWithCol:self.currentSelectedMenudIndex leftOrRight:leftOrRight leftRow:_leftSelectedRow row:indexPath.row]];
+        titleLabel.text = titleText;
         // 只取宽度
         textSize = [titleLabel.text textSizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:CGSizeMake(MAXFLOAT, 14) lineBreakMode:NSLineBreakByWordWrapping];
         
@@ -686,9 +692,37 @@
         }
     } else{
         
+        static NSString *leftTableCellIdentifier = LeftTableReuseIdentifier;
+        LeftTableViewCell *leftTableViewCell = (LeftTableViewCell *)[tableView dequeueReusableCellWithIdentifier:leftTableCellIdentifier forIndexPath:indexPath];
+        leftTableViewCell.menuTitle.text = titleText;
         CGFloat ratio = [_dataSource widthRatioOfLeftColumn:_currentSelectedMenudIndex];
         
         CGFloat marginX = (self.frame.size.width*ratio-textSize.width)/2;
+       
+        leftTableViewCell.subMenuCount.text = @"23";
+        switch (indexPath.row) {
+            case 0:
+                leftTableViewCell.imageView.image = [UIImage imageNamed:@"quanbufenlei"];
+                break;
+            case 1:
+                leftTableViewCell.imageView.image = [UIImage imageNamed:@"jinrixindan"];
+
+                break;
+            case 2:
+                leftTableViewCell.imageView.image = [UIImage imageNamed:@"dianying"];
+
+                break;
+            case 3:
+                leftTableViewCell.imageView.image = [UIImage imageNamed:@"meishi"];
+
+                break;
+            case 4:
+                leftTableViewCell.imageView.image = [UIImage imageNamed:@"jiudian"];
+
+                break;
+            default:
+                break;
+        }
         
         titleLabel.frame = CGRectMake(marginX, 0, textSize.width, cell.frame.size.height);
         
@@ -705,6 +739,7 @@
         } else{
             
         }
+        return leftTableViewCell;
     }
     
     return cell;
