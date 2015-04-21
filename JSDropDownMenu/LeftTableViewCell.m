@@ -16,7 +16,7 @@
     // Initialization code
     self.subMenuCount.layer.cornerRadius = 3.0;
     self.subMenuCount.layer.masksToBounds = YES;
-    [self setstyleForSelected:NO];
+   // [self setstyleForSelected:NO];
 
 }
 

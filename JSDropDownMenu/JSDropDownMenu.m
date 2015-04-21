@@ -748,7 +748,17 @@
                 
             }
             if (_leftSelectedRow == indexPath.row) {
-                cell.selected = YES;
+                leftTableViewCell.subMenuCount.backgroundColor = LeftCountDefaultColor;
+                leftTableViewCell.menuTitle.textColor = SelectColorForMenuAndIndicator;
+                leftTableViewCell.iconImageView.highlighted = YES;
+                leftTableViewCell.contentView.backgroundColor = LeftSelectColor;
+            
+            }else{
+                leftTableViewCell.contentView.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
+                
+                leftTableViewCell.subMenuCount.backgroundColor = LeftCountDefaultColor;
+                leftTableViewCell.menuTitle.textColor = [UIColor blackColor];
+                leftTableViewCell.iconImageView.highlighted = NO;
             }
             return leftTableViewCell;
         }else{
