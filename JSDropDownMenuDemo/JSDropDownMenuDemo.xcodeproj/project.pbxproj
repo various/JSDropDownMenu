@@ -14,6 +14,7 @@
 		7F5A04E41AE6458600AA82AF /* JSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5A04E31AE6458600AA82AF /* JSTableViewCell.m */; };
 		7F5A04E81AE662F200AA82AF /* LeftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5A04E61AE662F200AA82AF /* LeftTableViewCell.m */; };
 		7F5A04E91AE662F200AA82AF /* LeftTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F5A04E71AE662F200AA82AF /* LeftTableViewCell.xib */; };
+		7FE528BC1AE74773004A3A63 /* JSBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE528BB1AE74773004A3A63 /* JSBottomView.m */; };
 		D0EED8831A63CBC700EE7AFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EED8821A63CBC700EE7AFD /* main.m */; };
 		D0EED8861A63CBC700EE7AFD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EED8851A63CBC700EE7AFD /* AppDelegate.m */; };
 		D0EED8891A63CBC700EE7AFD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EED8881A63CBC700EE7AFD /* ViewController.m */; };
@@ -48,6 +49,8 @@
 		7F5A04E51AE662F200AA82AF /* LeftTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftTableViewCell.h; sourceTree = "<group>"; };
 		7F5A04E61AE662F200AA82AF /* LeftTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftTableViewCell.m; sourceTree = "<group>"; };
 		7F5A04E71AE662F200AA82AF /* LeftTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftTableViewCell.xib; sourceTree = "<group>"; };
+		7FE528BA1AE74773004A3A63 /* JSBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBottomView.h; sourceTree = "<group>"; };
+		7FE528BB1AE74773004A3A63 /* JSBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBottomView.m; sourceTree = "<group>"; };
 		D0EED87D1A63CBC700EE7AFD /* JSDropDownMenuDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSDropDownMenuDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0EED8811A63CBC700EE7AFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0EED8821A63CBC700EE7AFD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -163,6 +166,8 @@
 				7F5A04E51AE662F200AA82AF /* LeftTableViewCell.h */,
 				7F5A04E61AE662F200AA82AF /* LeftTableViewCell.m */,
 				7F5A04E71AE662F200AA82AF /* LeftTableViewCell.xib */,
+				7FE528BA1AE74773004A3A63 /* JSBottomView.h */,
+				7FE528BB1AE74773004A3A63 /* JSBottomView.m */,
 			);
 			name = JSDropDownMenu;
 			path = ../../JSDropDownMenu;
@@ -278,6 +283,7 @@
 				7F5A04E81AE662F200AA82AF /* LeftTableViewCell.m in Sources */,
 				D0EED8A91A63CCB300EE7AFD /* JSDropDownMenu.m in Sources */,
 				7F5A04DE1AE644B100AA82AF /* NSString+Size.m in Sources */,
+				7FE528BC1AE74773004A3A63 /* JSBottomView.m in Sources */,
 				D0EED8831A63CBC700EE7AFD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

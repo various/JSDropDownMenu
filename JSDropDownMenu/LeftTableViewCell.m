@@ -16,6 +16,8 @@
     // Initialization code
     self.subMenuCount.layer.cornerRadius = 3.0;
     self.subMenuCount.layer.masksToBounds = YES;
+    self.subMenuCount.backgroundColor = LeftCountDefaultColor;
+
    // [self setstyleForSelected:NO];
 
 }
@@ -27,16 +29,18 @@
 }
 
 -(void)setstyleForSelected:(BOOL)selected{
+    
     if (selected) {
-        self.subMenuCount.backgroundColor = LeftCountDefaultColor;
+        NSLog(@"*******selected = yes********");
         self.menuTitle.textColor = SelectColorForMenuAndIndicator;
+
         self.iconImageView.highlighted = YES;
         self.contentView.backgroundColor = LeftSelectColor;
     }else{
-        
+        NSLog(@"*******selected = no********");
+
         self.contentView.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
         
-        self.subMenuCount.backgroundColor = LeftCountDefaultColor;
         self.menuTitle.textColor = [UIColor blackColor];
         self.iconImageView.highlighted = NO;
         

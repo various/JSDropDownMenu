@@ -74,10 +74,14 @@
 
 -(BOOL)haveRightTableViewInColumn:(NSInteger)column{
     
-    if (column==0) {
-        return YES;
-    }
-    return NO;
+ 
+    if([[_data1[column] objectForKey:@"data"] count] == 0){
+        
+        return NO;
+     }
+        
+     return YES;
+ 
 }
 
 -(CGFloat)widthRatioOfLeftColumn:(NSInteger)column{

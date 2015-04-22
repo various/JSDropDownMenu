@@ -17,6 +17,9 @@
 // 选中颜色加深
 #define SelectColor [UIColor colorWithRed:238.0f/255.0f green:238.0f/255.0f blue:238.0f/255.0f alpha:1.0]
 
+#define CellSelectedColor [UIColor lightGrayColor]
+
+
 #define SelectColorForMenuAndIndicator [UIColor colorWithRed:254/255.0f green:109/255.0f blue:156/255.0f alpha:1.0]
 
 #pragma mark - menu implementation
@@ -355,6 +358,7 @@
             [self animateIdicator:_indicators[_currentSelectedMenudIndex] background:_backGroundView leftTableView:_leftTableView rightTableView:_rightTableView title:_titles[_currentSelectedMenudIndex] forward:NO complecte:^{
                 _currentSelectedMenudIndex = tapIndex;
                 _show = NO;
+                [self backToNormalStyle];
             }];
             
             //[(CALayer *)self.bgLayers[tapIndex] setBackgroundColor:BackColor.CGColor];
@@ -402,6 +406,13 @@
             //[(CALayer *)self.bgLayers[tapIndex] setBackgroundColor:BackColor.CGColor];
         }
     }
+}
+
+-(void)backToNormalStyle{
+    CAShapeLayer *indicator = (CAShapeLayer*)_indicators[_currentSelectedMenudIndex];
+    CATextLayer *textLayer = (CATextLayer *)_titles[_currentSelectedMenudIndex];
+    textLayer.foregroundColor = self.indicatorColor.CGColor;
+    indicator.strokeColor = self.indicatorColor.CGColor;
 }
 
 - (void)backgroundTapped:(UITapGestureRecognizer *)paramSender
@@ -682,11 +693,13 @@
         
         if ([titleLabel.text isEqualToString:[(CATextLayer *)[_titles objectAtIndex:_currentSelectedMenudIndex] string]]) {
             
-            UIImageView *accessoryImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_make"]];
-            
-            accessoryImageView.frame = CGRectMake(titleLabel.frame.origin.x+titleLabel.frame.size.width+10, (self.frame.size.height-12)/2, 16, 12);
-            
-            [cell addSubview:accessoryImageView];
+//            cell.contentView.backgroundColor = CellSelectedColor;
+//            titleLabel.backgroundColor = CellSelectedColor;
+//            UIImageView *accessoryImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_make"]];
+//            
+//            accessoryImageView.frame = CGRectMake(titleLabel.frame.origin.x+titleLabel.frame.size.width+10, (self.frame.size.height-12)/2, 16, 12);
+//            
+//            [cell addSubview:accessoryImageView];
         } else{
             
             
@@ -702,6 +715,7 @@
             CGFloat marginX = (self.frame.size.width*ratio-textSize.width)/2;
             
             leftTableViewCell.subMenuCount.text = @"23";
+//            leftTableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
             switch (indexPath.row) {
                 case 0:
                     leftTableViewCell.imageView.image = [UIImage imageNamed:@"quanbufenlei"];
@@ -738,27 +752,21 @@
                 cell.backgroundColor = BackColor;
                 BOOL haveRightTableView = [_dataSource haveRightTableViewInColumn:_currentSelectedMenudIndex];
                 if(!haveRightTableView){
-                    UIImageView *accessoryImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_make"]];
-                    
-                    accessoryImageView.frame = CGRectMake(titleLabel.frame.origin.x+titleLabel.frame.size.width+10, (self.frame.size.height-12)/2, 16, 12);
-                    
-                    [cell addSubview:accessoryImageView];
+//                    UIImageView *accessoryImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_make"]];
+//                    
+//                    accessoryImageView.frame = CGRectMake(titleLabel.frame.origin.x+titleLabel.frame.size.width+10, (self.frame.size.height-12)/2, 16, 12);
+//                    
+//                    [cell addSubview:accessoryImageView];
+                    cell.contentView.backgroundColor = CellSelectedColor;
+
                 }
             } else{
                 
             }
             if (_leftSelectedRow == indexPath.row) {
-                leftTableViewCell.subMenuCount.backgroundColor = LeftCountDefaultColor;
-                leftTableViewCell.menuTitle.textColor = SelectColorForMenuAndIndicator;
-                leftTableViewCell.iconImageView.highlighted = YES;
-                leftTableViewCell.contentView.backgroundColor = LeftSelectColor;
-            
-            }else{
-                leftTableViewCell.contentView.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
                 
-                leftTableViewCell.subMenuCount.backgroundColor = LeftCountDefaultColor;
-                leftTableViewCell.menuTitle.textColor = [UIColor blackColor];
-                leftTableViewCell.iconImageView.highlighted = NO;
+                [leftTableViewCell setSelected:YES];
+            
             }
             return leftTableViewCell;
         }else{
@@ -772,11 +780,13 @@
                 cell.backgroundColor = BackColor;
                 BOOL haveRightTableView = [_dataSource haveRightTableViewInColumn:_currentSelectedMenudIndex];
                 if(!haveRightTableView){
-                    UIImageView *accessoryImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_make"]];
-                    
-                    accessoryImageView.frame = CGRectMake(titleLabel.frame.origin.x+titleLabel.frame.size.width+10, (self.frame.size.height-12)/2, 16, 12);
-                    
-                    [cell addSubview:accessoryImageView];
+//                    UIImageView *accessoryImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_make"]];
+//                    
+//                    accessoryImageView.frame = CGRectMake(titleLabel.frame.origin.x+titleLabel.frame.size.width+10, (self.frame.size.height-12)/2, 16, 12);
+//                    
+//                    [cell addSubview:accessoryImageView];
+                    cell.contentView.backgroundColor = CellSelectedColor;
+
                 }
             } else{
                 
@@ -792,7 +802,7 @@
 
 #pragma mark - tableview delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+  
     NSInteger leftOrRight = 0;
     if (_rightTableView==tableView) {
         leftOrRight = 1;
@@ -802,7 +812,11 @@
     
     if (self.delegate || [self.delegate respondsToSelector:@selector(menu:didSelectRowAtIndexPath:)]) {
         
-        BOOL haveRightTableView = [_dataSource haveRightTableViewInColumn:_currentSelectedMenudIndex];
+        BOOL haveRightTableView = NO;
+        
+        if (_currentSelectedMenudIndex == 0) {
+            haveRightTableView =  [_dataSource haveRightTableViewInColumn:indexPath.row];
+        }
         
         if ((leftOrRight==0 && !haveRightTableView) || leftOrRight==1) {
             [self confiMenuWithSelectRow:indexPath.row leftOrRight:leftOrRight];
@@ -813,9 +827,10 @@
         if (leftOrRight==0 && haveRightTableView) {
             if (!_hadSelected) {
                 _hadSelected = YES;
-                [_leftTableView reloadData];
+               // [_leftTableView reloadData];
                 NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:_leftSelectedRow inSection:0];
-                
+               //LeftTableViewCell *leftCell = (LeftTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+                //[leftCell setSelected:YES];
                 [_leftTableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
             }
             
@@ -833,6 +848,7 @@
     
     [self animateIdicator:_indicators[_currentSelectedMenudIndex] background:_backGroundView leftTableView:_leftTableView rightTableView:_rightTableView title:_titles[_currentSelectedMenudIndex] forward:NO complecte:^{
         _show = NO;
+        [self backToNormalStyle];
     }];
     [(CALayer *)self.bgLayers[_currentSelectedMenudIndex] setBackgroundColor:BackColor.CGColor];
     
@@ -873,11 +889,13 @@
     cell.textLabel.textColor = self.textColor;
     
     if ([cell.textLabel.text isEqualToString:[(CATextLayer *)[_titles objectAtIndex:_currentSelectedMenudIndex] string]]) {
-        cell.backgroundColor = BackColor;
-        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_make"]];
+       
+        cell.contentView.backgroundColor = CellSelectedColor;
+
+//        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_make"]];
     } else{
         
-        [cell removeAccessoryView];
+        cell.backgroundColor = BackColor;
     }
     
     return cell;
